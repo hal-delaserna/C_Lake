@@ -34,7 +34,7 @@ CNAE_Subclasses_2_0$grupo.descrição <-
 
 # Carregamento CNAE 2.3 ----
 CNAE_Subclasses_2_3 <-
-  read.table(file = '../CNAE_Subclasses_2_3_Estrutura_Detalhada.csv', 
+  read.table(file = './data/CNAE_Subclasses_2_3_Estrutura_Detalhada.csv', 
              header = TRUE, sep = ";", stringsAsFactors = FALSE, 
              colClasses = c('character'), encoding = "latin1")
 

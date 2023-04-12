@@ -1,12 +1,69 @@
 cd /mnt/d/Users/humberto.serna/Documents/D_Lake/RSTUDIO_Projetos/
-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
+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
+
+rsconnect::setAccountInfo(name='i9mhg3-humberto0almeida0de0la0serna',
+        token='9196CA76549D20ADC1A5DC5FB1C75DC6',
+        secret='<SECRET>')
+
 
 echo "XXXXXX" | sed 's/\\/\//g'
 
 
 # *********************      CSS interno/MathJax      *****************************************************************
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-<style> body {background: ivory; font-size: small;}  p, li {color: #333333}  table {align-self: center; } .markdown-body h1 {color: darkslateblue; border-bottom: 5px solid darkslateblue;} .markdown-body h2 {color: darkslateblue; border-bottom: 4px solid darkslateblue;} .markdown-body h3 {color: darkslateblue; border-bottom: 3px solid darkslateblue;} .markdown-body h4 {color: darkslateblue; border-bottom: 2px solid darkslateblue;} .markdown-body h5 {color: darkslateblue; border-bottom: 1px solid darkslateblue;} .markdown-body h6 {color: darkslateblue; margin-bottom: 1px} .markdown-body blockquote {background-color: antiquewhite; margin-left: 80px; margin-right: 20px; border-left-color: antiquewhite;} .markdown-body hr {background-color: darkslateblue; height: 2px;} </style>
+<style> body {background: ghostwhite; font-size: small;}  p, li {color: #333333}  table {align-self: center; } .markdown-body h1 {color: darkslateblue; border-bottom: 5px solid darkslateblue;} .markdown-body h2 {color: darkslateblue; border-bottom: 4px solid darkslateblue;} .markdown-body h3 {color: darkslateblue; border-bottom: 3px solid darkslateblue;} .markdown-body h4 {color: darkslateblue; border-bottom: 2px solid darkslateblue;} .markdown-body h5 {color: darkslateblue; border-bottom: 1px solid darkslateblue;} .markdown-body h6 {color: darkslateblue; margin-bottom: 1px} .markdown-body blockquote {background-color: antiquewhite; margin-left: 80px; margin-right: 20px; border-left-color: antiquewhite;} .markdown-body hr {background-color: darkslateblue; height: 2px;} </style>
+
+
+# *********************      RMarkdown Layouts      *****************************************************************
+Tamanho página A4 (s/ nº de páginas)
+---
+      title: ""
+      date: "`r Sys.Date()`"
+      output:
+        rmdformats::html_docco:
+          highlight: kate
+---
+
+
+Estilo "site" com navBar menu
+---
+      title: ""
+      subtitle: ""
+      date: "`r Sys.Date()`"
+      output:
+        # rmdformats::downcute:  
+         rmdformats::robobook:    
+          self_contained: true
+          default_style: "light"
+          downcute_theme: "default"
+          highlight: kate
+---
+
+
+# ********************* DataTable Layouts ***********************
+
+---
+    DT::datatable(
+    extensions = 'Buttons',
+    rownames = F,
+    options = list(dom = 'Blfrtip', 
+                   buttons = c('excel'),
+                   columnDefs = list(list(className = 'dt-center', targets = 1))))
+---
+
+
+---
+       DT::datatable( 
+              caption = "Tabela",
+              rownames = F,
+              escape=FALSE,
+              options = list(
+                    searching = FALSE,
+                    paging = FALSE,
+                    info= FALSE,
+                    columnDefs = list(list(className = 'dt-center',targets = "_all"))))
+---
+
 
 # *********************************************************************************************************************
 # ************************       SED Scripts       ********************************************************************
@@ -209,18 +266,15 @@ for i in ls; do $(cat $i | sed 's/\.csv//g') done
 #___________Renomear vários arquivos 2
 
 for arquivo in *.pdf ; do novonome="2000_$arquivo"; mv "$arquivo" "$novonome"; done
-
-
 for arquivo in *.pdf ; do novonome = sed 's/Extrato Mensal \[B0033\]_//' $arquivo ; mv "$arquivo" "$novonome"; done
-
-
 for i in ls; do $(iconv -f iso-8859-1 -t utf-8 $i) > $i; done
-
 
 
 # procurar arquivos 
 
 find /directory/path/ -mmin 1 -ls # mtime para dias
+
+find  ./ -name '*quivo*'  # arquivos cuja parte do nome conste "quivo" na pasta e subpastas onde executamos o
 
 
 
@@ -231,7 +285,29 @@ find /directory/path/ -mmin 1 -ls # mtime para dias
 DBANM: sdf161.dnpm.net (10.30.0.161)
 HEMATITA: sdf154.dnpm.net (10.30.0.154)
 
-## Planilhas complementares AMB
+
+# ********************
+# *** Acessos SSMS ***
+# ********************
+
+
+DBAMB e DBCREDITO (o da Cfem):
+  Type: Database Engine  
+  Name: 10.30.0.69  
+  Windows Authentication  
+
+CubosDBAMB   
+  Type: Analisys Services 
+  Name: DBANM    
+  Windows Authentication  
+
+("browse" para design)
+
+
+
+# *************************************
+# **** Planilhas complementares AMB ***
+# *************************************
 Provider=MSOLAP.5;
 Integrated Security=SSPI;
 Persist Security Info=True;
@@ -279,5 +355,3 @@ DefaultQueryTimeout=0;
 Cube=DBAMB_MovimentacaoBruta;
 
 
-
-[DBAMB_MovimentacaoProducaoBeneficiada]
